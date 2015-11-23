@@ -41,8 +41,7 @@ public class TypeMatcherTest {
     @Test(expected = NullPointerException.class)
     public void testShouldThrowNullPointerExceptionSinceTheInputDoesNotCorrespondToAnyValidPattern() {
         TypeMatcher matcher = new FooMatcher();
-        String type = matcher.getType("banana");
-        Assert.assertNotEquals("com.crossover.properties.Foo", type);
+        matcher.getType("banana");
     }
 
     private class FooMatcher extends TypeMatcher {
