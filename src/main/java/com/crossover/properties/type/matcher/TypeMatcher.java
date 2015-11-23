@@ -6,8 +6,12 @@ public abstract class TypeMatcher {
 
     private TypeMatcher nextMatcher;
 
-    public void setNextMatcher(TypeMatcher nextMatcher) {
-        this.nextMatcher = nextMatcher;
+    public void setNextMatcher(TypeMatcher next) {
+        if (null == this.nextMatcher) {
+            this.nextMatcher = next;
+        } else {
+            this.nextMatcher.setNextMatcher(next);
+        }
     }
 
     public String getType(String input) {
