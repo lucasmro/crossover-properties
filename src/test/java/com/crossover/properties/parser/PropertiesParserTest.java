@@ -61,6 +61,32 @@ public class PropertiesParserTest {
         Assert.assertTrue(properties.size() == 1);
     }
 
+    @Test
+    public void testShouldNotThrowAnExceptionWhenContentOfFileIsNull() {
+        String filename = "jdbc.properties";
+        String content = null;
+        FileFormat format = FileFormat.PROPERTIES;
+
+        PropertyFile propertyFile = new PropertyFile(filename, content, format);
+
+        Map<String, Property> properties = parser.parse(propertyFile);
+
+        Assert.assertTrue(properties.size() == 0);
+    }
+
+    @Test
+    public void testShouldNotThrowAnExceptionWhenContentOfFileIsEmpty() {
+        String filename = "jdbc.properties";
+        String content = "";
+        FileFormat format = FileFormat.PROPERTIES;
+
+        PropertyFile propertyFile = new PropertyFile(filename, content, format);
+
+        Map<String, Property> properties = parser.parse(propertyFile);
+
+        Assert.assertTrue(properties.size() == 0);
+    }
+
     private TypeMatcher createMatcher() {
         TypeMatcher matcher = new BooleanMatcher();
         matcher.setNextMatcher(new IntegerMatcher());

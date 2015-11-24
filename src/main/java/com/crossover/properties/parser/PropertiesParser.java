@@ -31,9 +31,11 @@ public class PropertiesParser implements Parser {
 
         try {
             Properties properties = new Properties();
-            StringReader stringReader = new StringReader(propertyFile.getContent());
 
-            properties.load(stringReader);
+            if (null != propertyFile && null != propertyFile.getContent()) {
+                StringReader stringReader = new StringReader(propertyFile.getContent());
+                properties.load(stringReader);
+            }
 
             Enumeration<?> keys = properties.propertyNames();
             while (keys.hasMoreElements()) {
