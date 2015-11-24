@@ -7,6 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
+		<aws.java.sdk>1.10.20</aws.java.sdk>
 		<commons.io>2.4</commons.io>
 		<jackson.datatype.json.org>2.4.0</jackson.datatype.json.org>
 		<junit.version>4.12</junit.version>
@@ -16,6 +17,12 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk</artifactId>
+			<version>${aws.java.sdk}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
