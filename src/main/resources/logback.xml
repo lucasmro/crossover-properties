@@ -7,7 +7,7 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.crossover.properties" level="INFO" additivity="false">
+	<logger name="com.crossover.trial.properties" level="INFO" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 
