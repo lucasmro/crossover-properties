@@ -13,11 +13,8 @@ import com.crossover.trial.properties.loader.PropertyFileLoader;
 import com.crossover.trial.properties.loader.PropertyFileLoaderFactory;
 import com.crossover.trial.properties.parser.Parser;
 import com.crossover.trial.properties.parser.ParserFactory;
-import com.crossover.trial.properties.type.matcher.BooleanMatcher;
-import com.crossover.trial.properties.type.matcher.DoubleMatcher;
-import com.crossover.trial.properties.type.matcher.IntegerMatcher;
-import com.crossover.trial.properties.type.matcher.StringMatcher;
 import com.crossover.trial.properties.type.matcher.TypeMatcher;
+import com.crossover.trial.properties.type.matcher.TypeMatcherBuilder;
 
 /**
  * This is the entry point of the project
@@ -42,10 +39,7 @@ public class Main {
         }
 
         // Configure Type Matcher
-        TypeMatcher matcher = new BooleanMatcher();
-        matcher.setNextMatcher(new IntegerMatcher());
-        matcher.setNextMatcher(new DoubleMatcher());
-        matcher.setNextMatcher(new StringMatcher());
+        TypeMatcher matcher = new TypeMatcherBuilder().buildDefault();
 
         // Instantiate Factory
         ParserFactory factory = new ParserFactory(matcher);
