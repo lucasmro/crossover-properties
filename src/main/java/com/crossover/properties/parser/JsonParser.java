@@ -27,9 +27,13 @@ public class JsonParser implements Parser {
         Map<String, Property> map = new HashMap<String, Property>();
 
         try {
-            JSONObject jsonObject = new JSONObject(propertyFile.getContent());
-            Iterator<?> iterator = jsonObject.keys();
+            JSONObject jsonObject = new JSONObject();
 
+            if (null != propertyFile && null != propertyFile.getContent() && !propertyFile.getContent().isEmpty()) {
+                jsonObject = new JSONObject(propertyFile.getContent());
+            }
+
+            Iterator<?> iterator = jsonObject.keys();
             while (iterator.hasNext()) {
                 String key = (String) iterator.next();
                 String value = jsonObject.get(key).toString();

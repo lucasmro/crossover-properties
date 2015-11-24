@@ -55,4 +55,30 @@ public class JsonParserTest {
 
         return matcher;
     }
+
+    @Test
+    public void testShouldNotThrowAnExceptionWhenContentOfFileIsNull() {
+        String filename = "blank.json";
+        String content = null;
+        FileFormat format = FileFormat.JSON;
+
+        PropertyFile propertyFile = new PropertyFile(filename, content, format);
+
+        Map<String, Property> properties = parser.parse(propertyFile);
+
+        Assert.assertTrue(properties.size() == 0);
+    }
+
+    @Test
+    public void testShouldNotThrowAnExceptionWhenContentOfFileIsEmpty() {
+        String filename = "fake.json";
+        String content = "";
+        FileFormat format = FileFormat.JSON;
+
+        PropertyFile propertyFile = new PropertyFile(filename, content, format);
+
+        Map<String, Property> properties = parser.parse(propertyFile);
+
+        Assert.assertTrue(properties.size() == 0);
+    }
 }
