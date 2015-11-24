@@ -9,13 +9,8 @@ import org.junit.Test;
 import com.crossover.trial.properties.FileFormat;
 import com.crossover.trial.properties.Property;
 import com.crossover.trial.properties.PropertyFile;
-import com.crossover.trial.properties.parser.Parser;
-import com.crossover.trial.properties.parser.PropertiesParser;
-import com.crossover.trial.properties.type.matcher.BooleanMatcher;
-import com.crossover.trial.properties.type.matcher.DoubleMatcher;
-import com.crossover.trial.properties.type.matcher.IntegerMatcher;
-import com.crossover.trial.properties.type.matcher.StringMatcher;
 import com.crossover.trial.properties.type.matcher.TypeMatcher;
+import com.crossover.trial.properties.type.matcher.TypeMatcherBuilder;
 
 public class PropertiesParserTest {
 
@@ -23,7 +18,7 @@ public class PropertiesParserTest {
 
     @Before
     public void setUp() {
-        TypeMatcher matcher = createMatcher();
+        TypeMatcher matcher = new TypeMatcherBuilder().buildDefault();
         parser = new PropertiesParser(matcher);
     }
 
@@ -87,14 +82,5 @@ public class PropertiesParserTest {
         Map<String, Property> properties = parser.parse(propertyFile);
 
         Assert.assertTrue(properties.size() == 0);
-    }
-
-    private TypeMatcher createMatcher() {
-        TypeMatcher matcher = new BooleanMatcher();
-        matcher.setNextMatcher(new IntegerMatcher());
-        matcher.setNextMatcher(new DoubleMatcher());
-        matcher.setNextMatcher(new StringMatcher());
-
-        return matcher;
     }
 }

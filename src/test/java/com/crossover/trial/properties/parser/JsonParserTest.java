@@ -9,20 +9,15 @@ import org.junit.Test;
 import com.crossover.trial.properties.FileFormat;
 import com.crossover.trial.properties.Property;
 import com.crossover.trial.properties.PropertyFile;
-import com.crossover.trial.properties.parser.JsonParser;
-import com.crossover.trial.properties.parser.Parser;
-import com.crossover.trial.properties.type.matcher.BooleanMatcher;
-import com.crossover.trial.properties.type.matcher.DoubleMatcher;
-import com.crossover.trial.properties.type.matcher.IntegerMatcher;
-import com.crossover.trial.properties.type.matcher.StringMatcher;
 import com.crossover.trial.properties.type.matcher.TypeMatcher;
+import com.crossover.trial.properties.type.matcher.TypeMatcherBuilder;
 
 public class JsonParserTest {
     private Parser parser;
 
     @Before
     public void setUp() {
-        TypeMatcher matcher = createMatcher();
+        TypeMatcher matcher = new TypeMatcherBuilder().buildDefault();
         parser = new JsonParser(matcher);
     }
 
@@ -47,15 +42,6 @@ public class JsonParserTest {
         Assert.assertEquals(properties.get("timeout").getType(), "java.lang.Integer");
         Assert.assertEquals(properties.get("active").getType(), "java.lang.Boolean");
         Assert.assertEquals(properties.get("factor").getType(), "java.lang.Double");
-    }
-
-    private TypeMatcher createMatcher() {
-        TypeMatcher matcher = new BooleanMatcher();
-        matcher.setNextMatcher(new IntegerMatcher());
-        matcher.setNextMatcher(new DoubleMatcher());
-        matcher.setNextMatcher(new StringMatcher());
-
-        return matcher;
     }
 
     @Test

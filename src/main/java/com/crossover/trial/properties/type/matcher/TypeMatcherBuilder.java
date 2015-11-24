@@ -6,6 +6,7 @@ public class TypeMatcherBuilder {
         TypeMatcher matcher = new BooleanMatcher();
         matcher.setNextMatcher(new IntegerMatcher());
         matcher.setNextMatcher(new DoubleMatcher());
+        matcher.setNextMatcher(new AwsRegionMatcher());
         matcher.setNextMatcher(new StringMatcher());
 
         return matcher;
