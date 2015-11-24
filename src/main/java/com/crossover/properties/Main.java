@@ -2,6 +2,7 @@ package com.crossover.properties;
 
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Optional;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -60,12 +61,13 @@ public class Main {
         SortedMap<String, Property> sortedPropertiesMap = new TreeMap<String, Property>(comparator);
 
         for (String uri : args) {
-            PropertyFile propertyFile = loader.load(uri);
+            Optional<PropertyFile> propertyFile = loader.load(uri);
 
-            Parser parser = factory.getParser(propertyFile.getFormat());
-            Map<String, Property> propertiesMap = parser.parse(propertyFile);
-
-            sortedPropertiesMap.putAll(propertiesMap);
+            if (propertyFile.isPresent()) {
+                Parser parser = factory.getParser(propertyFile.get().getFormat());
+                Map<String, Property> propertiesMap = parser.parse(propertyFile.get());
+                sortedPropertiesMap.putAll(propertiesMap);
+            }
         }
 
         // Print all properties, type and values
