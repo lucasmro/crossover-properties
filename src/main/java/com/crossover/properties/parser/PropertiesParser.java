@@ -18,6 +18,8 @@ public class PropertiesParser implements Parser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesParser.class);
 
+    private static final String EMPTY = "";
+
     private final TypeMatcher matcher;
 
     public PropertiesParser(TypeMatcher matcher) {
@@ -37,6 +39,11 @@ public class PropertiesParser implements Parser {
             while (keys.hasMoreElements()) {
                 String key = (String) keys.nextElement();
                 String value = properties.getProperty(key);
+
+                if (EMPTY.equalsIgnoreCase(key) || EMPTY.equalsIgnoreCase(value)) {
+                    continue;
+                }
+
                 String type = matcher.getType(value);
 
                 map.put(key, new Property(key, value, type));

@@ -48,6 +48,19 @@ public class PropertiesParserTest {
         Assert.assertEquals(properties.get("factor").getType(), "java.lang.Double");
     }
 
+    @Test
+    public void testShouldNotConsiderAnyEmptyKeyOrAnyEmptyValue() {
+        String filename = "jdbc.properties";
+        String content = "username=\n=3600\n=\nfactor=.75\n";
+        FileFormat format = FileFormat.PROPERTIES;
+
+        PropertyFile propertyFile = new PropertyFile(filename, content, format);
+
+        Map<String, Property> properties = parser.parse(propertyFile);
+
+        Assert.assertTrue(properties.size() == 1);
+    }
+
     private TypeMatcher createMatcher() {
         TypeMatcher matcher = new BooleanMatcher();
         matcher.setNextMatcher(new IntegerMatcher());
