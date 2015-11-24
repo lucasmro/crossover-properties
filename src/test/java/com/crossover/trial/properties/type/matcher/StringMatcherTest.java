@@ -4,9 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.crossover.trial.properties.type.matcher.StringMatcher;
-import com.crossover.trial.properties.type.matcher.TypeMatcher;
-
 public class StringMatcherTest {
 
     private static String STRING_TYPE = "java.lang.String";
@@ -33,7 +30,7 @@ public class StringMatcherTest {
     }
 
     @Test
-    public void testShouldMatcTheStringTypeWhenTheInputIsAStringContainingABooleanValue() {
+    public void testShouldMatchTheStringTypeWhenTheInputIsAStringContainingABooleanValue() {
         String type = matcher.getType("true");
 
         Assert.assertEquals(STRING_TYPE, type);
