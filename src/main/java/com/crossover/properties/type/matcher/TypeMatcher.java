@@ -22,9 +22,9 @@ public abstract class TypeMatcher {
         return nextMatcher.getType(input);
     }
 
-    abstract protected Pattern getPattern();
+    protected abstract Pattern getPattern();
 
-    abstract protected String getName();
+    protected abstract String getName();
 
     private boolean matches(String input) {
         return getPattern().matcher(input).matches();
