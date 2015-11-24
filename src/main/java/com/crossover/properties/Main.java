@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.crossover.properties.loader.PropertyFileLoader;
+import com.crossover.properties.loader.PropertyFileLoaderFactory;
 import com.crossover.properties.parser.Parser;
 import com.crossover.properties.parser.ParserFactory;
 import com.crossover.properties.type.matcher.BooleanMatcher;
@@ -46,9 +47,6 @@ public class Main {
         matcher.setNextMatcher(new DoubleMatcher());
         matcher.setNextMatcher(new StringMatcher());
 
-        // Load Properties From File
-        PropertyFileLoader loader = new PropertyFileLoader();
-
         // Instantiate Factory
         ParserFactory factory = new ParserFactory(matcher);
 
@@ -61,6 +59,7 @@ public class Main {
         SortedMap<String, Property> sortedPropertiesMap = new TreeMap<String, Property>(comparator);
 
         for (String uri : args) {
+            PropertyFileLoader loader = new PropertyFileLoaderFactory().getPropertyFileLoader(uri);
             Optional<PropertyFile> propertyFile = loader.load(uri);
 
             if (propertyFile.isPresent()) {
