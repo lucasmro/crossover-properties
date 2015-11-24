@@ -17,7 +17,7 @@ public class PropertyFileLoader {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PropertyFileLoader.class);
 
-    public static final String CLASSPATH = "classpath";
+    private static final String CLASSPATH = "classpath";
 
     public PropertyFile load(String uri) {
         String content = null;
