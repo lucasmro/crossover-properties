@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.Optional;
 
 import org.apache.commons.io.FilenameUtils;
@@ -14,11 +13,9 @@ import org.slf4j.LoggerFactory;
 import com.crossover.properties.FileFormat;
 import com.crossover.properties.PropertyFile;
 
-public class PropertyFileLoader {
+public abstract class PropertyFileLoader {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PropertyFileLoader.class);
-
-    private static final String CLASSPATH = "classpath";
 
     public Optional<PropertyFile> load(String uri) {
         String content = null;
@@ -26,7 +23,7 @@ public class PropertyFileLoader {
         PropertyFile propertyFile = null;
 
         try {
-            inputStream = buildInputStream(uri);
+            inputStream = buildInputStreamFromUri(uri);
             content = inputStreamToString(inputStream);
 
             String filename = FilenameUtils.getName(uri);
@@ -43,31 +40,9 @@ public class PropertyFileLoader {
         return Optional.ofNullable(propertyFile);
     }
 
-    private InputStream buildInputStream(String uri) throws IOException {
-        URL url;
-        InputStream inputStream = null;
+    abstract protected InputStream buildInputStreamFromUri(String uri) throws IOException;
 
-        if (!uri.startsWith(CLASSPATH)) {
-            url = new URL(uri);
-
-            if (null != url) {
-                inputStream = url.openConnection().getInputStream();
-            }
-        } else {
-            url = PropertyFileLoader.class.getClassLoader().getResource(FilenameUtils.getName(uri));
-
-            if (null != url) {
-                inputStream = url.openStream();
-            }
-        }
-
-        return inputStream;
-    }
-
-    /**
-     * Convert a Input Stream to String
-     */
-    private static final String inputStreamToString(InputStream inputStream) throws IOException {
+    private final String inputStreamToString(InputStream inputStream) throws IOException {
         if (null == inputStream) {
             throw new IOException();
         }
