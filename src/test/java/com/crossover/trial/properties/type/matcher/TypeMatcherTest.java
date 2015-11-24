@@ -5,29 +5,31 @@ import java.util.regex.Pattern;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.crossover.trial.properties.type.matcher.TypeMatcher;
-
 public class TypeMatcherTest {
+
+    private static String NAMESPACE_FOO = "com.crossover.properties.Foo";
+    private static String NAMESPACE_BAR = "com.crossover.properties.Bar";
+    private static String NAMESPACE_BAZ = "com.crossover.properties.Baz";
 
     @Test
     public void testShouldMatchFoo() {
         TypeMatcher matcher = new FooMatcher();
         String type = matcher.getType("foo");
-        Assert.assertEquals("com.crossover.properties.Foo", type);
+        Assert.assertEquals(NAMESPACE_FOO, type);
     }
 
     @Test
     public void testShouldMatchBar() {
         TypeMatcher matcher = new BarMatcher();
         String type = matcher.getType("bar");
-        Assert.assertEquals("com.crossover.properties.Bar", type);
+        Assert.assertEquals(NAMESPACE_BAR, type);
     }
 
     @Test
     public void testShouldMatchBaz() {
         TypeMatcher matcher = new BazMatcher();
         String type = matcher.getType("baz");
-        Assert.assertEquals("com.crossover.properties.Baz", type);
+        Assert.assertEquals(NAMESPACE_BAZ, type);
     }
 
     @Test
@@ -37,7 +39,7 @@ public class TypeMatcherTest {
         matcher.setNextMatcher(new BazMatcher());
 
         String type = matcher.getType("baz");
-        Assert.assertEquals("com.crossover.properties.Baz", type);
+        Assert.assertEquals(NAMESPACE_BAZ, type);
     }
 
     @Test(expected = NullPointerException.class)
@@ -54,7 +56,7 @@ public class TypeMatcherTest {
 
         @Override
         protected String getName() {
-            return "com.crossover.properties.Foo";
+            return NAMESPACE_FOO;
         }
     }
 
@@ -66,7 +68,7 @@ public class TypeMatcherTest {
 
         @Override
         protected String getName() {
-            return "com.crossover.properties.Bar";
+            return NAMESPACE_BAR;
         }
     }
 
@@ -78,7 +80,7 @@ public class TypeMatcherTest {
 
         @Override
         protected String getName() {
-            return "com.crossover.properties.Baz";
+            return NAMESPACE_BAZ;
         }
     }
 }

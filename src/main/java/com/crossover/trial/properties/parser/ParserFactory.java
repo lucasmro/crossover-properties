@@ -18,7 +18,7 @@ public class ParserFactory {
             case JSON:
                 return new JsonParser(matcher);
             default:
-                throw new RuntimeException("File format not implemented");
+                throw new ParserNotImplementedException("File format not implemented");
         }
     }
 }

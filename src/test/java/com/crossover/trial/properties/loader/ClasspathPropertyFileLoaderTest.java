@@ -8,10 +8,11 @@ import org.junit.Test;
 
 import com.crossover.trial.properties.FileFormat;
 import com.crossover.trial.properties.PropertyFile;
-import com.crossover.trial.properties.loader.ClasspathPropertyFileLoader;
-import com.crossover.trial.properties.loader.PropertyFileLoader;
 
 public class ClasspathPropertyFileLoaderTest {
+
+    private static String URI_JDBC_PROPERTIES = "classpath:resources/jdbc.properties";
+    private static String URI_FAKE_PROPERTIES = "classpath:resources/fake.properties";
 
     private PropertyFileLoader propertyFileLoader;
 
@@ -22,13 +23,11 @@ public class ClasspathPropertyFileLoaderTest {
 
     @Test
     public void testShouldLoadValidPropertiesFileFromClasspath() {
-        String URI = "classpath:resources/jdbc.properties";
-
         String expectedFilename = "jdbc.properties";
-        String expectedContent = "username=foo\npassword=bar\nactive=true\n";
+        String expectedContent = "username=foo\nemail=foo@bar.com\nactive=true\n";
         FileFormat expectedFormat = FileFormat.PROPERTIES;
 
-        Optional<PropertyFile> propertyFile = propertyFileLoader.load(URI);
+        Optional<PropertyFile> propertyFile = propertyFileLoader.load(URI_JDBC_PROPERTIES);
 
         Assert.assertTrue(propertyFile.isPresent());
         Assert.assertEquals(expectedFilename, propertyFile.get().getFilename());
@@ -38,9 +37,7 @@ public class ClasspathPropertyFileLoaderTest {
 
     @Test
     public void testShouldNotThrowAnExceptionWhenFileIsInexistent() {
-        String URI = "classpath:resources/fake.properties";
-
-        Optional<PropertyFile> propertyFile = propertyFileLoader.load(URI);
+        Optional<PropertyFile> propertyFile = propertyFileLoader.load(URI_FAKE_PROPERTIES);
 
         Assert.assertFalse(propertyFile.isPresent());
     }

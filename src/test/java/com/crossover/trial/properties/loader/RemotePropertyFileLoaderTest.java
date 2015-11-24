@@ -9,10 +9,11 @@ import org.junit.Test;
 
 import com.crossover.trial.properties.FileFormat;
 import com.crossover.trial.properties.PropertyFile;
-import com.crossover.trial.properties.loader.PropertyFileLoader;
-import com.crossover.trial.properties.loader.RemotePropertyFileLoader;
 
 public class RemotePropertyFileLoaderTest {
+
+    private static String URI_FILE_CONFIG_JSON = "file:///tmp//config.json";
+    private static String URI_FILE_FAKE_JSON = "file:///tmp//fake.json";
 
     private PropertyFileLoader propertyFileLoader;
 
@@ -24,13 +25,11 @@ public class RemotePropertyFileLoaderTest {
     @Ignore
     @Test
     public void testShouldLoadValidPropertiesFileFromFilePath() {
-        String URI = "file:///tmp//config.json";
-
         String expectedFilename = "config.json";
         String expectedContent = "{\n\"endpoint\":\"http://localhost/v1/\",\n\"timeout\":3600,\n\"active\":true\n,\"factor\":.75\n}";
         FileFormat expectedFormat = FileFormat.JSON;
 
-        Optional<PropertyFile> propertyFile = propertyFileLoader.load(URI);
+        Optional<PropertyFile> propertyFile = propertyFileLoader.load(URI_FILE_CONFIG_JSON);
 
         Assert.assertTrue(propertyFile.isPresent());
         Assert.assertEquals(expectedFilename, propertyFile.get().getFilename());
@@ -41,9 +40,7 @@ public class RemotePropertyFileLoaderTest {
     @Ignore
     @Test
     public void testShouldNotThrowAnExceptionWhenFileIsInexistent() {
-        String URI = "file:///tmp//fake.json";
-
-        Optional<PropertyFile> propertyFile = propertyFileLoader.load(URI);
+        Optional<PropertyFile> propertyFile = propertyFileLoader.load(URI_FILE_FAKE_JSON);
 
         Assert.assertFalse(propertyFile.isPresent());
     }

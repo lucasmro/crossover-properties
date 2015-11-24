@@ -54,7 +54,7 @@ public class JsonParserTest {
 
         Map<String, Property> properties = parser.parse(propertyFile);
 
-        Assert.assertTrue(properties.size() == 0);
+        Assert.assertTrue(properties.isEmpty());
     }
 
     @Test
@@ -67,6 +67,6 @@ public class JsonParserTest {
 
         Map<String, Property> properties = parser.parse(propertyFile);
 
-        Assert.assertTrue(properties.size() == 0);
+        Assert.assertTrue(properties.isEmpty());
     }
 }

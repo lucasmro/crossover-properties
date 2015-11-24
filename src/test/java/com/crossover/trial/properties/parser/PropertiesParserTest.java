@@ -14,6 +14,8 @@ import com.crossover.trial.properties.type.matcher.TypeMatcherBuilder;
 
 public class PropertiesParserTest {
 
+    private static String FILENAME_JDBC_PROPERTIES = "jdbc.properties";
+
     private Parser parser;
 
     @Before
@@ -24,11 +26,10 @@ public class PropertiesParserTest {
 
     @Test
     public void testShouldParseValidPropertiesFile() {
-        String filename = "jdbc.properties";
         String content = "username=foo\ntimeout=3600\nactive=true\nfactor=.75\n";
         FileFormat format = FileFormat.PROPERTIES;
 
-        PropertyFile propertyFile = new PropertyFile(filename, content, format);
+        PropertyFile propertyFile = new PropertyFile(FILENAME_JDBC_PROPERTIES, content, format);
 
         Map<String, Property> properties = parser.parse(propertyFile);
 
@@ -47,11 +48,10 @@ public class PropertiesParserTest {
 
     @Test
     public void testShouldNotConsiderAnyEmptyKeyOrAnyEmptyValue() {
-        String filename = "jdbc.properties";
         String content = "username=\n=3600\n=\nfactor=.75\n";
         FileFormat format = FileFormat.PROPERTIES;
 
-        PropertyFile propertyFile = new PropertyFile(filename, content, format);
+        PropertyFile propertyFile = new PropertyFile(FILENAME_JDBC_PROPERTIES, content, format);
 
         Map<String, Property> properties = parser.parse(propertyFile);
 
@@ -60,27 +60,25 @@ public class PropertiesParserTest {
 
     @Test
     public void testShouldNotThrowAnExceptionWhenContentOfFileIsNull() {
-        String filename = "jdbc.properties";
         String content = null;
         FileFormat format = FileFormat.PROPERTIES;
 
-        PropertyFile propertyFile = new PropertyFile(filename, content, format);
+        PropertyFile propertyFile = new PropertyFile(FILENAME_JDBC_PROPERTIES, content, format);
 
         Map<String, Property> properties = parser.parse(propertyFile);
 
-        Assert.assertTrue(properties.size() == 0);
+        Assert.assertTrue(properties.isEmpty());
     }
 
     @Test
     public void testShouldNotThrowAnExceptionWhenContentOfFileIsEmpty() {
-        String filename = "jdbc.properties";
         String content = "";
         FileFormat format = FileFormat.PROPERTIES;
 
-        PropertyFile propertyFile = new PropertyFile(filename, content, format);
+        PropertyFile propertyFile = new PropertyFile(FILENAME_JDBC_PROPERTIES, content, format);
 
         Map<String, Property> properties = parser.parse(propertyFile);
 
-        Assert.assertTrue(properties.size() == 0);
+        Assert.assertTrue(properties.isEmpty());
     }
 }

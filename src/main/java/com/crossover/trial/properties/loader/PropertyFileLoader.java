@@ -40,7 +40,7 @@ public abstract class PropertyFileLoader {
         return Optional.ofNullable(propertyFile);
     }
 
-    abstract protected InputStream buildInputStreamFromUri(String uri) throws IOException;
+    protected abstract InputStream buildInputStreamFromUri(String uri) throws IOException;
 
     private final String inputStreamToString(InputStream inputStream) throws IOException {
         if (null == inputStream) {

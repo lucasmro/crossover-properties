@@ -15,7 +15,7 @@ import com.crossover.trial.properties.type.matcher.TypeMatcher;
 
 public class PropertiesManager {
 
-    private final String[] uris;;
+    private final String[] uris;
     private final TypeMatcher typeMatcher;
     private final ParserFactory parserFactory;
 
